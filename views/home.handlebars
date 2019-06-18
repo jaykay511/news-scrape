@@ -2,6 +2,11 @@
     <h1>Hacker News Scraper</h1>
     <div id="articles">
         {{!-- loop through and display --}}
+        {{#each articles}}
+        <h3>Title: {{ this.title }}</h3>
+        <p>{{ this.sitestr }}</p>
+        <p>{{ this.link }}</p>
+        {{/each}}
     </div>
     <div id="notes"></div>
 </div>
