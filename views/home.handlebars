@@ -1,11 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Mongo News Scraper</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Saved Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="scrapebtn">Scrape Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Clear Articles</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <div id="wrapper">
     <h1>Hacker News Scraper</h1>
     <div id="articles">
         {{!-- loop through and display --}}
         {{#each articles}}
-        <h3>Title: {{ this.title }}</h3>
-        <p>{{ this.sitestr }}</p>
-        <p>{{ this.link }}</p>
+        {{#if this.title }}
+        <h3>Title: <span class=".articletitle">{{ this.title }}</span></h3>
+        <p class=".sitestring">{{ this.sitestr }}</p>
+        <p class=".articlelink">{{ this.link }}</p>
+        <button class="savearticle" data-id={{ this._id }}>Save Article</button>
+        {{/if}}
         {{/each}}
     </div>
     <div id="notes"></div>

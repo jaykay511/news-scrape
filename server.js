@@ -52,10 +52,10 @@ app.get("/scrape", function (req, res) {
 
             // Add the text and href of every link, and save them as properties of the result object
             result.title = $(this)
-                .children("a")
+                .children(".storylink")
                 .text();
             result.link = $(this)
-                .children("a")
+                .children(".storylink")
                 .attr("href");
             result.sitestr = $(this)
                 .children(".sitebit")
@@ -124,7 +124,21 @@ app.post("/articles/:id", function (req, res) {
         });
 });
 
+// Saving a specific article
+app.put("/articles/:id", function (req, res) {
+    
+    
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true })
+        .then(function (dbArticle) {
+            // If successfully updated an Article, send it back to the client
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
 // Start the server
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
-});  
+});

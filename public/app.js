@@ -67,5 +67,41 @@ $.getJSON("/articles", function(data) {
     // Remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+
   });
   
+  $(document).on("click", "#scrapebtn", function() {
+    // Empty the notes from the note section
+    $("#articles").empty();
+
+    // Now make an ajax call for the Article
+    $.ajax({
+      method: "GET",
+      url: "/scrape"
+    })
+      .then(function(data) {
+        window.location = "/";
+      });
+  });
+
+  // When you save an article
+  $(document).on("click", ".savearticle", function() {
+    // Grab the id associated with the article from the submit button
+    var thisId = $(this).attr("data-id");
+  
+    $.ajax({
+      method: "PUT",
+      url: "/articles/" + thisId,
+      data: {
+        title: $(".articletitle").text(),
+        sitestr: $(".sitestring").text(),
+        link: $(".articlelink").text(),
+        saved: true,
+      }
+    })
+      .then(function(data) {
+
+        console.log(data);
+        
+      });
+  });
